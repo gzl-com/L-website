@@ -179,6 +179,7 @@ export default function App() {
   const [mounted, setMounted] = useState(false);
   const [framesReady, setFramesReady] = useState(false);
   const [heroHeight, setHeroHeight] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoBgRef = useRef<HTMLDivElement>(null);
@@ -322,9 +323,19 @@ export default function App() {
     return () => cancelAnimationFrame(rafId);
   }, [framesReady]);
 
-  // 禁用视差鼠标跟踪效果 - 保持首屏文字固定不动
+  // 首屏缩小滚动效果
   useEffect(() => {
-    return () => {};
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const heroHeightValue = heroRef.current?.offsetHeight || window.innerHeight;
+
+      // 计算滚动进度 (0 到 1)
+      const progress = Math.min(scrollY / (heroHeightValue * 0.5), 1);
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -354,7 +365,16 @@ export default function App() {
         </div>
 
         {/* Navigation */}
-        <nav className="absolute top-5 left-1/2 -translate-x-1/2 z-[60] whitespace-nowrap">
+        <nav
+          className="absolute left-1/2 z-[60] whitespace-nowrap"
+          style={{
+            top: '20px',
+            transform: `translateX(-50%) scale(${1 - scrollProgress * 0.3})`,
+            opacity: 1 - scrollProgress * 0.5,
+            transformOrigin: 'center top',
+            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+          }}
+        >
           <div className="liquid-glass flex items-center gap-6 rounded px-4 py-2.5">
             <LogoMark />
             <div className="flex items-center gap-5">
@@ -382,11 +402,17 @@ export default function App() {
         {/* Hero title */}
         <div
           className="absolute left-0 right-0 z-[40] w-full px-4"
-          style={{ top: '126px' }}
+          style={{
+            top: '126px',
+            transform: `scale(${1 - scrollProgress * 0.5})`,
+            opacity: 1 - scrollProgress * 0.7,
+            transformOrigin: 'center top',
+            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+          }}
         >
           <h1
-            className={`hero-title select-none transition-all duration-1000 text-[clamp(44px,9vw,120px)] ${
-              mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            className={`hero-title select-none text-[clamp(44px,9vw,120px)] ${
+              mounted ? 'opacity-100' : 'opacity-0'
             }`}
           >
             Welcome My Website
@@ -395,9 +421,15 @@ export default function App() {
 
         {/* Bottom row */}
         <div
-          className={`absolute bottom-12 left-0 right-0 px-10 flex items-end justify-between z-[40] transition-all duration-1000 delay-300 w-full ${
+          className={`absolute bottom-12 left-0 right-0 px-10 flex items-end justify-between z-[40] w-full ${
             mounted ? 'opacity-100' : 'opacity-0'
           }`}
+          style={{
+            transform: `scale(${1 - scrollProgress * 0.4})`,
+            opacity: (mounted ? 1 : 0) * (1 - scrollProgress * 0.8),
+            transformOrigin: 'center bottom',
+            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+          }}
         >
           <p className="text-sm font-body font-light text-white/75 max-w-[220px] leading-relaxed">
             像溪流学习吧，他从不执着于形状，遇石则绕，遇崖则跃，终将奔赴属于自己的海洋。
