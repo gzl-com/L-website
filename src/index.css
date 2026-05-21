@@ -84,13 +84,9 @@
 
 /* Content sections background */
 .content-section {
-  background-image: url('/particle-flow-bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   position: relative;
   overflow: hidden;
+  background-color: transparent;
 }
 
 .content-section::before {

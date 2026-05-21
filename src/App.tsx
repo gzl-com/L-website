@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const NAV_LINKS = ['关于我', '爱好', '工作', '展望'];
 const VIDEO_SRC = '/hero-video.mp4';
+const LANDING_BG_VIDEO = '/landing-bg.mp4';
 
 const FEATURES = [
   {
@@ -29,6 +30,21 @@ function LogoMark() {
       <rect x="16" y="3" width="12" height="20" rx="3" fill="white" />
       <rect x="30" y="3" width="14" height="20" rx="3" fill="white" />
     </svg>
+  );
+}
+
+function LandingVideoBackground() {
+  return (
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="fixed top-0 left-0 w-full h-full object-cover pointer-events-none"
+      style={{ zIndex: 0 }}
+    >
+      <source src={LANDING_BG_VIDEO} type="video/mp4" />
+    </video>
   );
 }
 
@@ -404,11 +420,14 @@ export default function App() {
         </div>
       </section>
 
+      {/* Landing Video Background for all content sections */}
+      <LandingVideoBackground />
+
       {/* Particle Background for non-hero sections */}
       <ParticleBackground heroHeight={heroHeight} />
 
       {/* About & Hobbies Section */}
-      <section className="content-section relative py-24 px-10">
+      <section className="content-section relative py-24 px-10" style={{ zIndex: 10 }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 gap-16 items-center">
             {/* Photo Left */}
@@ -439,7 +458,7 @@ export default function App() {
       </section>
 
       {/* Work Section */}
-      <section className="content-section relative py-24 px-10">
+      <section className="content-section relative py-24 px-10" style={{ zIndex: 10 }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 gap-16 items-center">
             {/* Content Left */}
@@ -469,7 +488,7 @@ export default function App() {
       </section>
 
       {/* Features Section */}
-      <section className="content-section relative py-32 px-10">
+      <section className="content-section relative py-32 px-10" style={{ zIndex: 10 }}>
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-heading font-bold mb-4 text-white text-center">核心特性</h2>
           <p className="text-white/60 font-body font-light text-center mb-24 max-w-2xl mx-auto">
@@ -485,7 +504,7 @@ export default function App() {
       </section>
 
       {/* Contact Section */}
-      <section className="content-section relative min-h-screen flex flex-col items-center justify-center px-10 py-24">
+      <section className="content-section relative min-h-screen flex flex-col items-center justify-center px-10 py-24" style={{ zIndex: 10 }}>
         <div className="max-w-4xl w-full text-center">
           <h2 className="text-4xl font-heading font-bold mb-6 text-white">让我们合作</h2>
           <p className="text-white/75 font-body font-light mb-12 text-lg">
