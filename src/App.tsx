@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Loading } from './Loading';
 
 const NAV_LINKS = ['关于我', '爱好', '工作', '展望'];
 const VIDEO_SRC = '/hero-video.mp4';
@@ -181,13 +182,75 @@ export default function App() {
   const [mounted, setMounted] = useState(false);
   const [heroHeight, setHeroHeight] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [resourcesLoaded, setResourcesLoaded] = useState(0);
 
   const videoBgRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
+  const loadingTimeoutRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // 监听资源加载完成
+  useEffect(() => {
+    const checkResourcesLoaded = () => {
+      // 等待主要资源加载完成后隐藏加载屏幕
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+
+      loadingTimeoutRef.current = setTimeout(() => {
+        setIsLoading(false);
+      }, 2000); // 最小加载时间 2 秒，确保动画完整显示
+    };
+
+    // 监听图片加载
+    const images = document.querySelectorAll('img');
+    let loadedImages = 0;
+
+    const onImageLoad = () => {
+      loadedImages++;
+      setResourcesLoaded(loadedImages);
+      if (loadedImages >= images.length) {
+        checkResourcesLoaded();
+      }
+    };
+
+    if (images.length === 0) {
+      checkResourcesLoaded();
+    } else {
+      images.forEach((img) => {
+        if (img.complete) {
+          loadedImages++;
+        } else {
+          img.addEventListener('load', onImageLoad);
+          img.addEventListener('error', onImageLoad);
+        }
+      });
+
+      if (loadedImages === images.length) {
+        checkResourcesLoaded();
+      }
+    }
+
+    // 备用：确保即使资源加载失败也会隐藏加载屏幕
+    const fallbackTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+
+    return () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+      clearTimeout(fallbackTimeout);
+      images.forEach((img) => {
+        img.removeEventListener('load', onImageLoad);
+        img.removeEventListener('error', onImageLoad);
+      });
+    };
+  }, [mounted]);
 
   useEffect(() => {
     if (heroRef.current) {
@@ -218,6 +281,8 @@ export default function App() {
 
   return (
     <div className="bg-black text-white font-body overflow-x-hidden relative">
+      <Loading isLoading={isLoading} />
+
       {/* Hero Section */}
       <section ref={heroRef} className="relative w-full min-h-screen flex flex-col" style={{ cursor: 'default' }}>
         {/* Video background layer - Hero only */}
