@@ -357,12 +357,12 @@ export default function App() {
             preload="auto"
             crossOrigin="anonymous"
             className="w-full h-full object-cover"
-            style={{ display: framesReady ? 'none' : 'block' }}
+            style={{ display: framesReady && framesRef.current.length > 0 ? 'none' : 'block' }}
           />
           <canvas
             ref={displayCanvasRef}
             className="w-full h-full object-cover"
-            style={{ display: framesReady ? 'block' : 'none' }}
+            style={{ display: framesReady && framesRef.current.length > 0 ? 'block' : 'none' }}
           />
         </div>
 
