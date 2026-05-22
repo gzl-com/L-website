@@ -427,31 +427,35 @@ export default function App() {
       {/* Contact Section */}
       <section className="content-section relative min-h-screen flex flex-col items-center justify-center px-10 py-24" style={{ zIndex: 10 }}>
         <div className="max-w-4xl w-full text-center">
-          <h2 className="text-4xl font-heading font-bold mb-6 text-white">让我们合作</h2>
+          <h2 className="text-4xl font-heading font-bold mb-6 text-white">联系方式</h2>
           <p className="text-white/75 font-body font-light mb-12 text-lg">
-            如果您对我的工作感兴趣，或者有任何合作想法，欢迎与我取得联系。我期待与您共同创造出色的项目。
+            欢迎通过以下方式与我取得联系，期待与你的交流和合作。
           </p>
 
           <div className="flex flex-col gap-6 items-center">
-            <button className="group relative bg-white text-black text-base font-body font-medium rounded px-12 py-4 overflow-hidden active:scale-[0.97] transition-all duration-200 shadow-[0_0_0_0_rgba(255,255,255,0)] hover:shadow-[0_0_32px_6px_rgba(255,255,255,0.3)] hover:scale-[1.05]">
-              <span className="relative z-10">发送邮件</span>
-              <span className="absolute inset-0 bg-gradient-to-b from-white to-white/85 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </button>
+            <div className="liquid-glass w-full max-w-2xl rounded-2xl p-8">
+              <div className="grid grid-cols-2 gap-8 items-center">
+                {/* Contact Info */}
+                <div className="text-left">
+                  <p className="text-white/70 font-body font-light mb-6 text-lg">
+                    联系信息
+                  </p>
+                  <div className="space-y-6">
+                    <div>
+                      <p className="text-white/60 font-body font-light text-sm mb-2">微信</p>
+                      <p className="text-white text-base font-body font-medium">gzl121000</p>
+                    </div>
+                    <div>
+                      <p className="text-white/60 font-body font-light text-sm mb-2">电话</p>
+                      <p className="text-white text-base font-body font-medium">19809744082</p>
+                    </div>
+                  </div>
+                </div>
 
-            <div className="liquid-glass w-full max-w-md rounded-2xl p-8 mt-8">
-              <p className="text-white/70 font-body font-light mb-6">
-                或通过以下方式与我联系：
-              </p>
-              <div className="space-y-4">
-                <p className="text-white/60 font-body font-light">
-                  📧 Email: your.email@example.com
-                </p>
-                <p className="text-white/60 font-body font-light">
-                  💼 LinkedIn: linkedin.com/in/yourprofile
-                </p>
-                <p className="text-white/60 font-body font-light">
-                  🐙 GitHub: github.com/yourprofile
-                </p>
+                {/* QR Code */}
+                <div className="flex justify-center">
+                  <img src="/fe0b8906d00c647c6122f362f87a866c.jpg" alt="微信二维码" className="w-56 h-56 rounded-xl" />
+                </div>
               </div>
             </div>
           </div>
