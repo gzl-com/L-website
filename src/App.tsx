@@ -350,7 +350,9 @@ export default function App() {
           <video
             ref={videoRef}
             src={VIDEO_SRC}
+            autoPlay
             muted
+            loop
             playsInline
             preload="auto"
             crossOrigin="anonymous"

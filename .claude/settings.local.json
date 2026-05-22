@@ -13,7 +13,8 @@
       "PowerShell(git commit -m \"chore: add network request monitoring permission\")",
       "PowerShell(Copy-Item -Path \"D:\\\\新建文件夹\\\\xwechat_files\\\\wxid_cwvsst1jc16t22_2129\\\\temp\\\\RWTemp\\\\2026-05\\\\9e20f478899dc29eb19741386f9343c8\\\\d436f7282c6d8d211d82e2d3f91ab25d.mp4\" -Destination \"D:\\\\郭子亮\\\\个人网站\\\\public\\\\landing-bg.mp4\" -Force; Get-Item \"D:\\\\郭子亮\\\\个人网站\\\\public\\\\landing-bg.mp4\" | Select-Object Name, @{Name=\"SizeMB\";Expression={[math]::Round\\($_.Length/1MB,2\\)}})",
       "mcp__Claude_in_Chrome__resize_window",
-      "mcp__Claude_in_Chrome__read_console_messages"
+      "mcp__Claude_in_Chrome__read_console_messages",
+      "mcp__Claude_in_Chrome__switch_browser"
     ]
   }
 }
