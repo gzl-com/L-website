@@ -234,6 +234,27 @@ export default function App() {
           />
         </div>
 
+        {/* Hero Video Overlay - scales down on scroll */}
+        <div
+          className="absolute top-0 left-0 w-full h-full z-[35] pointer-events-none"
+          style={{
+            transform: `scale(${1 - scrollProgress * 0.5})`,
+            opacity: 1 - scrollProgress * 0.7,
+            transformOrigin: 'center top',
+            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
+          }}
+        >
+          <video
+            src={VIDEO_SRC}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
         {/* Navigation */}
         <nav
           className="absolute left-1/2 z-[60] whitespace-nowrap"
