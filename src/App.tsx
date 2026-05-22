@@ -203,7 +203,7 @@ export default function App() {
 
       loadingTimeoutRef.current = setTimeout(() => {
         setIsLoading(false);
-      }, 2000); // 最小加载时间 2 秒，确保动画完整显示
+      }, 7500); // 加载时间 5-10 秒（此处设置为 7.5 秒）
     };
 
     // 监听图片加载
@@ -235,10 +235,10 @@ export default function App() {
       }
     }
 
-    // 备用：确保即使资源加载失败也会隐藏加载屏幕
+    // 备用：确保即使资源加载失败也会隐藏加载屏幕（10 秒最大等待时间）
     const fallbackTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 10000);
 
     return () => {
       if (loadingTimeoutRef.current) {
