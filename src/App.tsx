@@ -6,20 +6,20 @@ const LANDING_BG_VIDEO = '/landing-bg.mp4';
 
 const FEATURES = [
   {
-    title: '专业发展',
-    desc: '深化土木工程专业知识与技能',
+    title: 'AI基础掌握',
+    desc: '深入学习人工智能理论与应用',
   },
   {
-    title: '技能提升',
-    desc: '学习新技术，拓展职业能力边界',
+    title: '训练师认证',
+    desc: '成为专业的AI训练师和提示词工程师',
   },
   {
-    title: '行业贡献',
-    desc: '参与重点项目，为建设行业贡献力量',
+    title: '实战应用',
+    desc: '将AI技术应用于实际项目和场景',
   },
   {
-    title: '持续学习',
-    desc: '终身学习，不断完善自我修养',
+    title: '行业前沿',
+    desc: '紧跟AI发展趋势，不断创新进步',
   },
 ];
 
@@ -358,7 +358,7 @@ export default function App() {
             {/* Photo Left */}
             <div className="flex justify-center">
               <div className="liquid-glass w-80 h-80 rounded-3xl overflow-hidden flex items-center justify-center">
-                <img src="/67f91b5874e059514bfdea554b15a595.jpg" alt="头像" className="w-full h-full object-cover" />
+                <img src="/6cc9ab4c84a286d6631e82f2824be2cf.jpg" alt="头像" className="w-full h-full object-cover" />
               </div>
             </div>
 
@@ -401,7 +401,7 @@ export default function App() {
             {/* Photo Right */}
             <div className="flex justify-center">
               <div className="liquid-glass w-80 h-80 rounded-3xl overflow-hidden flex items-center justify-center">
-                <img src="/6cc9ab4c84a286d6631e82f2824be2cf.jpg" alt="工作亮点" className="w-full h-full object-cover" />
+                <img src="/67f91b5874e059514bfdea554b15a595.jpg" alt="工作亮点" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
