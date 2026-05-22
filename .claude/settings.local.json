@@ -17,7 +17,8 @@
       "mcp__Claude_in_Chrome__switch_browser",
       "WebSearch",
       "WebFetch(domain:github.com)",
-      "PowerShell(npx skills add https://github.com/Leonxlnx/taste-skill)"
+      "PowerShell(npx skills add https://github.com/Leonxlnx/taste-skill)",
+      "mcp__Claude_in_Chrome__find"
     ]
   }
 }
