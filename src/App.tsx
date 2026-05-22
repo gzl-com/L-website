@@ -260,8 +260,8 @@ export default function App() {
           className="absolute left-1/2 z-[60] whitespace-nowrap"
           style={{
             top: '20px',
-            transform: `translateX(-50%) scale(${1 - scrollProgress * 0.3})`,
-            opacity: 1 - scrollProgress * 0.5,
+            transform: `translateX(-50%) scale(${1 - scrollProgress * 0.5})`,
+            opacity: 1 - scrollProgress * 0.7,
             transformOrigin: 'center top',
             transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
           }}
@@ -316,8 +316,8 @@ export default function App() {
             mounted ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
-            transform: `scale(${1 - scrollProgress * 0.4})`,
-            opacity: (mounted ? 1 : 0) * (1 - scrollProgress * 0.8),
+            transform: `scale(${1 - scrollProgress * 0.5})`,
+            opacity: (mounted ? 1 : 0) * (1 - scrollProgress * 0.7),
             transformOrigin: 'center bottom',
             transition: 'transform 0.1s ease-out, opacity 0.1s ease-out',
           }}
