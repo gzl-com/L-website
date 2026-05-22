@@ -40,8 +40,14 @@ function LandingVideoBackground() {
       loop
       muted
       playsInline
-      className="fixed top-0 left-0 w-full h-full object-cover pointer-events-none"
-      style={{ zIndex: 0 }}
+      className="fixed top-0 left-0 pointer-events-none"
+      style={{
+        zIndex: 0,
+        width: '100vw',
+        height: '100vh',
+        objectFit: 'cover',
+        objectPosition: 'center'
+      }}
     >
       <source src={LANDING_BG_VIDEO} type="video/mp4" />
     </video>
