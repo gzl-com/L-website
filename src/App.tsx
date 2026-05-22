@@ -40,11 +40,9 @@ function LandingVideoBackground() {
       loop
       muted
       playsInline
-      className="fixed top-0 left-0 pointer-events-none"
+      className="fixed inset-0 pointer-events-none"
       style={{
         zIndex: 0,
-        width: '100vw',
-        height: '100vh',
         objectFit: 'cover',
         objectPosition: 'center'
       }}
