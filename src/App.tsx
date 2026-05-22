@@ -177,16 +177,11 @@ function FeatureCard({ feature, index }: { feature: typeof FEATURES[0]; index: n
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
-  const [framesReady, setFramesReady] = useState(false);
   const [heroHeight, setHeroHeight] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const videoRef = useRef<HTMLVideoElement>(null);
   const videoBgRef = useRef<HTMLDivElement>(null);
-  const displayCanvasRef = useRef<HTMLCanvasElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-
-  const framesRef = useRef<HTMLCanvasElement[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -203,125 +198,6 @@ export default function App() {
     }
   }, []);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    let capturing = true;
-    let lastTime = -1;
-    const MAX_WIDTH = 960;
-    const frames: HTMLCanvasElement[] = [];
-
-    const captureFrame = () => {
-      if (!capturing || video.readyState < 2 || video.currentTime === lastTime) {
-        return;
-      }
-
-      lastTime = video.currentTime;
-
-      const scale = Math.min(1, MAX_WIDTH / video.videoWidth);
-      const w = video.videoWidth * scale;
-      const h = video.videoHeight * scale;
-
-      const canvas = document.createElement('canvas');
-      canvas.width = w;
-      canvas.height = h;
-
-      const ctx = canvas.getContext('2d');
-      if (ctx) {
-        ctx.drawImage(video, 0, 0, w, h);
-        frames.push(canvas);
-      }
-    };
-
-    const onLoadedMetadata = () => {
-      video.play().catch(() => {});
-      if ('requestVideoFrameCallback' in video) {
-        let rvfcId: number;
-        const rvfcLoop = () => {
-          captureFrame();
-          rvfcId = video.requestVideoFrameCallback(rvfcLoop);
-        };
-        rvfcId = video.requestVideoFrameCallback(rvfcLoop);
-        return () => video.cancelVideoFrameCallback(rvfcId);
-      } else {
-        let rafId: number;
-        const rafLoop = () => {
-          captureFrame();
-          rafId = requestAnimationFrame(rafLoop);
-        };
-        rafId = requestAnimationFrame(rafLoop);
-        return () => cancelAnimationFrame(rafId);
-      }
-    };
-
-    const onEnded = () => {
-      capturing = false;
-      framesRef.current = frames;
-      setFramesReady(true);
-    };
-
-    if (video.readyState >= 1) {
-      const cleanup = onLoadedMetadata();
-      video.addEventListener('ended', onEnded);
-      return () => {
-        cleanup?.();
-        video.removeEventListener('ended', onEnded);
-      };
-    }
-
-    video.addEventListener('loadedmetadata', onLoadedMetadata);
-    video.addEventListener('ended', onEnded);
-
-    return () => {
-      video.removeEventListener('loadedmetadata', onLoadedMetadata);
-      video.removeEventListener('ended', onEnded);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!framesReady) return;
-
-    const canvas = displayCanvasRef.current;
-    const frames = framesRef.current;
-
-    if (!canvas || frames.length === 0) return;
-
-    const firstFrame = frames[0];
-    canvas.width = firstFrame.width;
-    canvas.height = firstFrame.height;
-
-    let index = 0;
-    let direction = 1;
-    let last = performance.now();
-    const interval = 1000 / 30;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let rafId: number;
-    const render = (now: number) => {
-      if (now - last >= interval) {
-        ctx.drawImage(frames[index], 0, 0);
-        index += direction;
-
-        if (index >= frames.length - 1) {
-          index = frames.length - 1;
-          direction = -1;
-        } else if (index <= 0) {
-          index = 0;
-          direction = 1;
-        }
-
-        last = now;
-      }
-      rafId = requestAnimationFrame(render);
-    };
-
-    rafId = requestAnimationFrame(render);
-
-    return () => cancelAnimationFrame(rafId);
-  }, [framesReady]);
 
   // 首屏缩小滚动效果
   useEffect(() => {
@@ -348,21 +224,13 @@ export default function App() {
           className="absolute top-0 left-0 w-full h-full z-0 scale-[1.08] origin-center"
         >
           <video
-            ref={videoRef}
             src={VIDEO_SRC}
             autoPlay
             muted
             loop
             playsInline
             preload="auto"
-            crossOrigin="anonymous"
             className="w-full h-full object-cover"
-            style={{ display: framesReady && framesRef.current.length > 0 ? 'none' : 'block' }}
-          />
-          <canvas
-            ref={displayCanvasRef}
-            className="w-full h-full object-cover"
-            style={{ display: framesReady && framesRef.current.length > 0 ? 'block' : 'none' }}
           />
         </div>
 
