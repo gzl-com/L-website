@@ -214,7 +214,7 @@ export default function App() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [heroHeight]);
 
   return (
     <div className="bg-black text-white font-body overflow-x-hidden relative">
