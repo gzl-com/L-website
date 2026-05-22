@@ -6,20 +6,20 @@ const LANDING_BG_VIDEO = '/landing-bg.mp4';
 
 const FEATURES = [
   {
-    title: '创意设计',
-    desc: '打造独特的视觉体验与交互设计',
+    title: '专业发展',
+    desc: '深化土木工程专业知识与技能',
   },
   {
-    title: '技术实现',
-    desc: '运用现代技术栈构建高效应用',
+    title: '技能提升',
+    desc: '学习新技术，拓展职业能力边界',
   },
   {
-    title: '持续成长',
-    desc: '不断学习与优化，追求卓越',
+    title: '行业贡献',
+    desc: '参与重点项目，为建设行业贡献力量',
   },
   {
-    title: '用户至上',
-    desc: '以用户体验为中心的设计理念',
+    title: '持续学习',
+    desc: '终身学习，不断完善自我修养',
   },
 ];
 
@@ -358,9 +358,7 @@ export default function App() {
             {/* Photo Left */}
             <div className="flex justify-center">
               <div className="liquid-glass w-80 h-80 rounded-3xl overflow-hidden flex items-center justify-center">
-                <div className="w-full h-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center">
-                  <p className="text-white/50 font-body text-center">您的照片</p>
-                </div>
+                <img src="/67f91b5874e059514bfdea554b15a595.jpg" alt="头像" className="w-full h-full object-cover" />
               </div>
             </div>
 
@@ -368,10 +366,10 @@ export default function App() {
             <div>
               <h2 className="text-4xl font-heading font-bold mb-6 text-white">关于我</h2>
               <p className="text-white/75 font-body font-light leading-relaxed mb-6">
-                我是一个充满热情的设计师与开发者，致力于创造优美且富有意义的数字产品。在过去的多年中，我不断探索设计与技术的交点，为每个项目注入独特的创意与精细的打磨。
+                大家好，我叫郭子亮，来自河北邯郸。2025年毕业于土木工程专业，希望能跟大家好好相处。
               </p>
               <p className="text-white/75 font-body font-light leading-relaxed mb-8">
-                在爱好方面，我热爱摄影、音乐创作和阅读。这些兴趣激发了我的创意灵感，让我能够更好地理解美学与用户体验之间的微妙联系。
+                关于爱好方面，我喜欢打游戏，看动漫，和旅游。这些兴趣让我能够开阔视野，丰富生活经验。
               </p>
               <button className="group relative bg-white text-black text-sm font-body font-medium rounded px-8 py-3 overflow-hidden active:scale-[0.97] transition-all duration-200 hover:shadow-[0_0_24px_4px_rgba(255,255,255,0.25)] hover:scale-[1.03]">
                 <span className="relative z-10">了解更多</span>
@@ -390,10 +388,10 @@ export default function App() {
             <div>
               <h2 className="text-4xl font-heading font-bold mb-6 text-white">工作经历</h2>
               <p className="text-white/75 font-body font-light leading-relaxed mb-6">
-                我拥有丰富的数字产品设计与前端开发经验，曾与多家创新企业合作，打造过颇具影响力的项目。我注重细节，追求卓越，每一个作品都承载着我的思考与热情。
+                我之前任职于中咨工程咨询管理有限公司，参与了北京平谷线（22号线）轨道交通项目的相关工作。这是一条连接北京市区与平谷区的城际铁路项目，工程规模大。
               </p>
               <p className="text-white/75 font-body font-light leading-relaxed mb-8">
-                从概念阶段到上线运营，我全程参与项目，确保每个环节都达到最高标准。我相信好的设计不仅仅是视觉上的美观，更是用户体验的完美诠释。
+                在此项目中，我深入学习了土木工程的实际应用，积累了丰富的项目经验，为未来的职业发展打下了坚实的基础。
               </p>
               <button className="liquid-glass group text-white text-sm font-body font-medium rounded px-8 py-3 active:scale-[0.97] transition-all duration-200 hover:scale-[1.03] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_0_20px_2px_rgba(255,255,255,0.07)]">
                 查看作品
@@ -403,9 +401,7 @@ export default function App() {
             {/* Photo Right */}
             <div className="flex justify-center">
               <div className="liquid-glass w-80 h-80 rounded-3xl overflow-hidden flex items-center justify-center">
-                <div className="w-full h-full bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center">
-                  <p className="text-white/50 font-body text-center">工作亮点</p>
-                </div>
+                <img src="/6cc9ab4c84a286d6631e82f2824be2cf.jpg" alt="工作亮点" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -415,9 +411,9 @@ export default function App() {
       {/* Features Section */}
       <section className="content-section relative py-32 px-10" style={{ zIndex: 10 }}>
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-heading font-bold mb-4 text-white text-center">核心特性</h2>
+          <h2 className="text-4xl font-heading font-bold mb-4 text-white text-center">计划目标</h2>
           <p className="text-white/60 font-body font-light text-center mb-24 max-w-2xl mx-auto">
-            我将创意与技术完美融合，为每个项目提供专业的解决方案
+            不断提升自我，为行业贡献力量
           </p>
 
           <div className="relative h-96 flex items-center justify-center">
