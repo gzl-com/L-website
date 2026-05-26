@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Loading } from './Loading';
 
-const NAV_LINKS = ['关于我', '爱好', '工作', '展望'];
+const NAV_LINKS = [
+  { label: '关于我', href: '#about' },
+  { label: '爱好', href: '#about' },
+  { label: '工作', href: '#work' },
+  { label: '展望', href: '#goals' },
+];
 const VIDEO_SRC = '/hero-video.mp4';
-const LANDING_BG_VIDEO = '/landing-bg.mp4';
 
 const FEATURES = [
   {
@@ -31,23 +35,6 @@ function LogoMark() {
       <rect x="16" y="3" width="12" height="20" rx="3" fill="white" />
       <rect x="30" y="3" width="14" height="20" rx="3" fill="white" />
     </svg>
-  );
-}
-
-function LandingVideoBackground() {
-  return (
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="fixed top-0 left-0 w-full h-full pointer-events-none object-cover"
-      style={{
-        zIndex: 0,
-      }}
-    >
-      <source src={LANDING_BG_VIDEO} type="video/mp4" />
-    </video>
   );
 }
 
@@ -148,29 +135,17 @@ function ParticleBackground({ heroHeight }: { heroHeight: number }) {
   );
 }
 
-function FeatureCard({ feature, index }: { feature: typeof FEATURES[0]; index: number }) {
+function FeatureCard({ feature }: { feature: typeof FEATURES[0]; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
-
-  const positions = [
-    { x: -120, y: 0 },
-    { x: -40, y: 100 },
-    { x: 80, y: 100 },
-    { x: 160, y: 0 },
-  ];
-
-  const pos = positions[index];
 
   return (
     <div
-      className="absolute transition-all duration-300"
-      style={{
-        transform: `translate(${pos.x}px, ${pos.y}px) ${isHovered ? 'translateY(-20px)' : ''}`,
-        zIndex: isHovered ? 40 : 20 + index,
-      }}
+      className="transition-all duration-300"
+      style={{ transform: isHovered ? 'translateY(-12px)' : 'translateY(0)' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="liquid-glass w-48 h-48 rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-[0_0_32px_4px_rgba(255,255,255,0.15)]">
+      <div className="liquid-glass w-52 h-52 rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:shadow-[0_0_32px_4px_rgba(255,255,255,0.15)]">
         <h3 className="text-white font-body font-medium mb-3 text-base">{feature.title}</h3>
         <p className="text-white/60 font-body font-light text-sm leading-relaxed">{feature.desc}</p>
       </div>
@@ -203,7 +178,7 @@ export default function App() {
 
       loadingTimeoutRef.current = setTimeout(() => {
         setIsLoading(false);
-      }, 7500); // 加载时间 5-10 秒（此处设置为 7.5 秒）
+      }, 2000);
     };
 
     // 监听图片加载
@@ -235,10 +210,9 @@ export default function App() {
       }
     }
 
-    // 备用：确保即使资源加载失败也会隐藏加载屏幕（10 秒最大等待时间）
     const fallbackTimeout = setTimeout(() => {
       setIsLoading(false);
-    }, 10000);
+    }, 4000);
 
     return () => {
       if (loadingTimeoutRef.current) {
@@ -338,17 +312,17 @@ export default function App() {
             <div className="flex items-center gap-5">
               {NAV_LINKS.map((link) => (
                 <a
-                  key={link}
-                  href="#"
+                  key={link.label}
+                  href={link.href}
                   className="text-sm font-body font-light text-white/70 hover:text-white transition-colors duration-200"
                 >
-                  {link}
+                  {link.label}
                 </a>
               ))}
             </div>
             <div className="flex items-center gap-3 ml-4">
               <a
-                href="#"
+                href="#contact"
                 className="text-sm font-body font-light text-white/70 hover:text-white transition-colors duration-200"
               >
                 联系方式
@@ -369,11 +343,11 @@ export default function App() {
           }}
         >
           <h1
-            className={`hero-title select-none text-[clamp(44px,9vw,120px)] ${
+            className={`hero-title select-none text-[clamp(36px,7vw,100px)] ${
               mounted ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            Welcome My Website
+            From Structure to Intelligence
           </h1>
         </div>
 
@@ -410,14 +384,11 @@ export default function App() {
         </div>
       </section>
 
-      {/* Landing Video Background for all content sections */}
-      <LandingVideoBackground />
-
       {/* Particle Background for non-hero sections */}
       <ParticleBackground heroHeight={heroHeight} />
 
       {/* About & Hobbies Section */}
-      <section className="content-section relative py-24 px-10" style={{ zIndex: 10 }}>
+      <section id="about" className="content-section relative py-24 px-10" style={{ zIndex: 10 }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 gap-16 items-center">
             {/* Photo Left */}
@@ -446,7 +417,7 @@ export default function App() {
       </section>
 
       {/* Work Section */}
-      <section className="content-section relative py-24 px-10" style={{ zIndex: 10 }}>
+      <section id="work" className="content-section relative py-24 px-10" style={{ zIndex: 10 }}>
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 gap-16 items-center">
             {/* Content Left */}
@@ -474,14 +445,14 @@ export default function App() {
       </section>
 
       {/* Features Section */}
-      <section className="content-section relative py-32 px-10" style={{ zIndex: 10 }}>
+      <section id="goals" className="content-section relative py-32 px-10" style={{ zIndex: 10 }}>
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-heading font-bold mb-4 text-white text-center">计划目标</h2>
           <p className="text-white/60 font-body font-light text-center mb-24 max-w-2xl mx-auto">
             不断提升自我，为行业贡献力量
           </p>
 
-          <div className="relative h-96 flex items-center justify-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 justify-items-center">
             {FEATURES.map((feature, index) => (
               <FeatureCard key={index} feature={feature} index={index} />
             ))}
@@ -490,7 +461,7 @@ export default function App() {
       </section>
 
       {/* Contact Section */}
-      <section className="content-section relative min-h-screen flex flex-col items-center justify-center px-10 py-24" style={{ zIndex: 10 }}>
+      <section id="contact" className="content-section relative min-h-screen flex flex-col items-center justify-center px-10 py-24" style={{ zIndex: 10 }}>
         <div className="max-w-4xl w-full text-center">
           <h2 className="text-4xl font-heading font-bold mb-6 text-white">联系方式</h2>
           <p className="text-white/75 font-body font-light mb-12 text-lg">
@@ -529,7 +500,7 @@ export default function App() {
         {/* Footer */}
         <div className="absolute bottom-10 left-0 right-0 text-center">
           <p className="text-white/40 font-body font-light text-sm">
-            © 2024 Your Name. All rights reserved.
+            © 2025 郭子亮. All rights reserved.
           </p>
         </div>
       </section>
